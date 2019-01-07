@@ -85,6 +85,10 @@ $api->version('v1',[
             $api->post('topics','TopicsController@store')->name('api.topics.store');
             $api->patch('topics/{topics}','TopicsController@update')->name('api.topics.update');
             $api->delete('topics/{topics}','TopicsController@destroy')->name('api.topics.destroy');
+
+//            发布回复
+            $api->post('topics/{topics}/replies','RepliesController@store')->name('api.topics.replies.store');
+
         });
 
     });
