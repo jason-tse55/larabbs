@@ -70,6 +70,8 @@ $api->version('v1',[
             ->name('api.categories.index');
         $api->get('topics','TopicsController@index')->name('api.topics.index');
         $api->get('users/{user}/topics','TopicsController@userIndex')->name('api.users.topics.index');
+        $api->get('topics/{topics}', 'TopicsController@show')->name('api.topics.show');
+
 
 //        需要 token验证才能访问的接口
         $api->group(['middleware'=>'api.auth'],function ($api){

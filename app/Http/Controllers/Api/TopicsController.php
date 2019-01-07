@@ -17,8 +17,6 @@ class TopicsController extends Controller
        if($categoryId = $topic->category_id){
            $query->where('category_id',$categoryId);
        }
-
-        // 为了说明 N+1问题，不使用 scopeWithOrder
         switch ($request->order) {
             case 'recent':
                 $query->recent();
@@ -34,11 +32,16 @@ class TopicsController extends Controller
         return $this->response->paginator($topics, new TopicTransformer());
     }
 
-    public function userIndex(User $user, Request $request)
+    public function userIndex(User $user)
     {
         $topics = $user->topics()->recent()->paginate(10);
 
         return $this->response->paginator($topics, new TopicTransformer());
+    }
+
+    public function show(Topic $topic)
+    {
+        return $this->response->item($topic, new TopicTransformer());
     }
 
     public function store(TopicRequest $request, Topic $topic)
