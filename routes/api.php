@@ -63,7 +63,8 @@ $api->version('v1',['namespace'=>'App\Http\Controllers\Api','middleware'=>'seria
         'expires'=>config('api.rate_limits.access.expires')
     ],function ($api){
 //        游客可以访问的接口
-
+        $api->get('categories','CategoriesController@index')
+            ->name('api.categories.index');
 
 //        需要 token验证才能访问的接口
         $api->group(['middleware'=>'api.auth'],function ($api){
