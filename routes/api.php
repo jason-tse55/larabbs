@@ -12,11 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',[
@@ -32,33 +27,25 @@ $api->version('v1',[
 //    图片验证码
         $api->post('captchas','CaptchasController@store')
             ->name('api.captchas.store');
-
  //    短信验证码
         $api->post('verificationCodes','VerificationCodesController@store')
             ->name('api.verificationCodes.store');
-
 //    用户注册
         $api->post('users','UsersController@store')
             ->name('api.users.store');
-
 //    第三方登录
         $api->post('socials/{social_type}/authorizations','AuthorizationsController@socialStore')
             ->name('api.socials.authorizations.store');
-
 //    登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
-
 //    刷新token
         $api->put('authorizations/current','AuthorizationsController@update')
             ->name('api.authorizations.update');
-
 //    删除token
         $api->delete('authorizations/current','AuthorizationsController@destroy')
             ->name('api.authorizations.destroy');
     });
-
-
 
     $api->group([
         'middleware'=>'api.throttle',
@@ -78,6 +65,7 @@ $api->version('v1',[
         $api->get('topics/{topic}/replies', 'RepliesController@index')->name('api.topics.replies.index');
 //        某个用户回复的
         $api->get('users/{user}/replies', 'RepliesController@userIndex')->name('api.users.replies.index');
+
 
 //        需要 token验证才能访问的接口
         $api->group(['middleware'=>'api.auth'],function ($api){
@@ -99,7 +87,6 @@ $api->version('v1',[
             $api->delete('topics/{topic}/replies/{reply}','RepliesController@destroy')
                 ->name('api.topics.replies.destroy');
         });
-
     });
 
 });
