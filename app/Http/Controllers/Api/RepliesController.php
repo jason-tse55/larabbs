@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Api\ReplyRequest;
+
+use App\Http\Requests\ReplyRequest;
 use App\Models\Reply;
 use App\Models\Topic;
 use App\Transformers\ReplyTransformer;
@@ -11,7 +12,6 @@ class RepliesController extends Controller
 {
     public function store(ReplyRequest $request, Topic $topic, Reply $reply)
     {
-        dd($topic->id);
         $reply->content = $request->content;
         $reply->topic_id = $topic->id;
         $reply->user_id = $this->user()->id;
